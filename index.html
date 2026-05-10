@@ -828,6 +828,7 @@
     document.getElementById('resultSub').textContent = sub;
     card.classList.add('visible');
     card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    gtag('event', 'result_shown', { result_value: 1, tool_name: 'index.html' });
   }
 
   /* ── Retry ── */
