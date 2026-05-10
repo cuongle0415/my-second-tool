@@ -368,6 +368,39 @@
 
     .retry-btn:hover { background: var(--orange-lt); }
 
+    .copy-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--orange);
+      background: #fff;
+      border: 2px solid var(--orange);
+      border-radius: 10px;
+      padding: 14px 32px;
+      cursor: pointer;
+      margin-top: 1.25rem;
+      margin-left: 0.75rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .copy-btn:hover { background: var(--orange); color: #fff; }
+
+    #copyToast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1D1D1F;
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    #copyToast.show { opacity: 1; }
+
     /* ── Mobile ── */
     @media (max-width: 480px) {
       body { padding: 1rem 0.75rem 3rem; }
@@ -716,9 +749,11 @@
     <div class="result-msg"  id="resultMsg"></div>
     <div class="result-sub"  id="resultSub"></div>
     <button class="retry-btn" onclick="retryQuiz()">Làm lại</button>
+    <button class="copy-btn" onclick="copyResult()">Copy kết quả</button>
   </div>
 
 </div><!-- /wrap -->
+<div id="copyToast">Đã copy!</div>
 
 <script>
   let score   = 0;
@@ -834,6 +869,18 @@
   /* ── Retry ── */
   function retryQuiz() {
     location.reload();
+  }
+
+  /* ── Copy result ── */
+  function copyResult() {
+    const scoreText = document.getElementById('resultScore').textContent;
+    const msgText   = document.getElementById('resultMsg').textContent;
+    navigator.clipboard.writeText(scoreText + '\n' + msgText).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1000);
+      gtag('event', 'result_copy', { tool_name: 'index.html', result_value: 1 });
+    });
   }
 
   /* ── Export PDF ── */
