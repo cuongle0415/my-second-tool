@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz – Grammar Week 1</title>
+  <!-- GA4 wired -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B3B8XPJY1B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-B3B8XPJY1B');
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -829,6 +837,7 @@
 
   /* ── Export PDF ── */
   function exportPDF() {
+    gtag('event', 'button_click_main', { tool_name: 'index.html' });
     const name = document.getElementById('nameInput').value.trim();
     const old  = document.title;
     document.title = 'Quiz Grammar W1' + (name ? ' – ' + name : '');
